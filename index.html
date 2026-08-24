@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jelajah Mojokerto - Pesona Sejarah & Alam</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --primary-color: #8b0000; /* Terakota Majapahit */
+            --accent-color: #d97706;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg-main: #0f172a;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Hero Header */
+        header {
+            background: linear-gradient(135deg, rgba(139, 0, 0, 0.9), rgba(180, 83, 9, 0.8)), 
+                        url('https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=1200&q=80') center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px 80px;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Navigasi Floating */
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: -30px auto 30px;
+            padding: 10px 20px;
+            background: var(--bg-card);
+            border-radius: 50px;
+            box-shadow: var(--shadow);
+            position: relative;
+            z-index: 10;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active, .tab-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--text-secondary);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards Layout */
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(225, 225, 225, 0.1);
+        }
+
+        .card-tag {
+            display: inline-block;
+            background-color: rgba(139, 0, 0, 0.1);
+            color: var(--primary-color);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Quick Facts Widget */
+        .fact-box {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+
+        .fact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .fact-item h4 {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+
+        .fact-item p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 2rem; }
+            .nav-container { flex-direction: column; gap: 10px; border-radius: 20px; }
+            .fact-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Mojokerto</h1>
+        <p>Jelajahi Jejak Jejamuan Majapahit & Pesona Alam Modern</p>
+    </header>
+
+    <div class="nav-container">
+        <div class="tab-buttons">
+            <button class="tab-btn active" onclick="openTab(event, 'sejarah')">Sejarah</button>
+            <button class="tab-btn" onclick="openTab(event, 'wisata')">Wisata</button>
+            <button class="tab-btn" onclick="openTab(event, 'kuliner')">Kuliner</button>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Ubah Mode">🌙</button>
+    </div>
+
+    <main>
+        <!-- Tab 1: Sejarah & Ringkasan -->
+        <div id="sejarah" class="tab-content active">
+            <div class="fact-box">
+                <h2>Sekilas Mojokerto</h2>
+                <p>Kawasan strategis di Jawa Timur yang memadukan sejarah kejayaan Nusantara dan keindahan alam pegunungan.</p>
+                <div class="fact-grid">
+                    <div class="fact-item">
+                        <h4>1293</h4>
+                        <p>Tahun Berdirinya Majapahit</p>
+                    </div>
+                    <div class="fact-item">
+                        <h4>Trowulan</h4>
+                        <p>Pusat Situs Sejarah</p>
+                    </div>
+                    <div class="fact-item">
+                        <h4>2</h4>
+                        <p>Wilayah (Kota & Kab)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <span class="card-tag">WARISAN BUDAYA</span>
+                <h3>Pusat Peradaban Majapahit</h3>
+                <p>Mojokerto, khususnya Trowulan, dikenal luas sebagai ibu kota Kerajaan Majapahit. Wilayah ini menyimpan ratusan peninggalan berupa candi, gapura, prasasti, hingga pemukiman kuno yang menjadi bukti kejayaan masa lalu.</p>
+            </div>
+        </div>
+
+        <!-- Tab 2: Destinasi Wisata -->
+        <div id="wisata" class="tab-content">
+            <h2 style="margin-bottom: 15px;">Destinasi Pilihan</h2>
+            <div class="grid-cards">
+                <div class="card">
+                    <span class="card-tag">ALAM & SEJUK</span>
+                    <h3>Pacet & Trawas</h3>
+                    <p>Kawasan dataran tinggi dengan panorama Gunung Penanggungan, pemandian air panas alami, serta kafe-kafe alam yang kekinian.</p>
+                </div>
+                <div class="card">
+                    <span class="card-tag">SEJARAH</span>
+                    <h3>Candi Tikus & Bajang Ratu</h3>
+                    <p>Situs sejarah dengan arsitektur bata merah khas Majapahit yang dikelilingi taman yang asri dan terawat.</p>
+                </div>
+                <div class="card">
+                    <span class="card-tag">RELIGI</span>
+                    <h3>Patung Buddha Tidur</h3>
+                    <p>Patung Buddha tidur berukuran raksasa terbesar di Indonesia yang berlokasi di Maha Vihara Mojopahit, Trowulan.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Kuliner -->
+        <div id="kuliner" class="tab-content">
+            <h2 style="margin-bottom: 15px;">Cita Rasa Khas</h2>
+            <div class="grid-cards">
+                <div class="card">
+                    <span class="card-tag">OLEH-OLEH</span>
+                    <h3>Onde-Onde Mojokerto</h3>
+                    <p>Kue bertekstur kenyal bertabur wijen dengan isian kacang hijau legit yang menjadi ikon kuliner khas sejak dulu.</p>
+                </div>
+                <div class="card">
+                    <span class="card-tag">MAKANAN BERKUAH</span>
+                    <h3>Soto Sekar Djiwo</h3>
+                    <p>Soto tradisional dengan racikan rempah khas Mojokerto yang gurih dan menyegarkan.</p>
+                </div>
+                <div class="card">
+                    <span class="card-tag">MINUMAN</span>
+                    <h3>Es Grasak</h3>
+                    <p>Minuman es serut tradisional dengan perpaduan sirup khas yang pas dinikmati di tengah cuaca hangat.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Portal Informasi Mojokerto. Didesain untuk kenyamanan membaca.</p>
+    </footer>
+
+    <script>
+        // Fungsi Tab Interaktif
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Fungsi Dark Mode Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const themeBtn = document.querySelector('.theme-toggle');
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeBtn.textContent = '🌙';
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeBtn.textContent = '☀️';
+            }
+        }
+    </script>
+</body>
+                      </html>
